@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="particles.css">
+        <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="outer">
+            <canvas id="particles" width="500" height="500"></canvas>
+            <div class="inner">
+                <h1>Merry Christmas,</h1>
+                <h2>Mother fucker.</h2>
+            </div>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="random.js"></script>
+        <script src="particular.js"></script>
+        <script>
+            $(document).ready(function () {
+                var particular = Particular.hook(document.getElementById('particles'));
+                particular.start();
+            })
+        </script>
+    </body>
+</html>

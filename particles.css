@@ -1,0 +1,37 @@
+#particles {
+    position: absolute;
+    top: 0;
+}
+
+#outer {
+    background-color: #85DADD;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.inner {
+    font-family: 'Lobster Two';
+    font-weight: 400;
+    font-size: 3em;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+h1, h2 {
+    color: #fff;
+    margin: 0;
+}
+
+h2 {
+    font-style: italic;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
