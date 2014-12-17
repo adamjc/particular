@@ -28,8 +28,10 @@ var Particular = (function() {
             canvas.width = document.getElementById('outer').offsetWidth;
             canvas.height = document.getElementById('outer').offsetHeight;
 
-            update();
             createParticles();
+            warmUpParticles();
+
+            update();
         }
 
         particularObject.stop = function() {
@@ -64,6 +66,15 @@ var Particular = (function() {
                 var particle = createParticle();
                 particle.initialize();
                 particles.push(particle);
+            }
+        }
+
+        function warmUpParticles() {
+            for (var i = 0; i < particles.length; i++) {
+                particles[i].y = particles[i].yVel * 500;
+                particles[i].x = (particles[i].startX) * Math.cos(i - 5) + (canvas.width / 2);
+                particles[i].lifeTime = 250;
+                particles[i].opacity = 1 - (particles[i].lifeTime / particles[i].maxLifeTime);
             }
         }
 
