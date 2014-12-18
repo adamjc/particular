@@ -84,7 +84,7 @@ var Particular = (function() {
         function updateParticles() {
             for (var i = 0; i < particles.length; i++) {
                 //particles[i].y += particles[i].yVel;
-                particles[i].y = i * 2 * Math.atan(i) + (canvas.height / 4);
+                particles[i].y = i * 2 * Math.atan(i) + (canvas.height / 8);
                 particles[i].x = i * Math.cos(i- time) + (canvas.width / 2);
                 particles[i].lifeTime++;
                 particles[i].opacity = 1 - (particles[i].lifeTime / particles[i].maxLifeTime);
