@@ -19,7 +19,7 @@ var Random = (function() {
     }
 
     random.chance = function(percentage) {
-        return (Math.random() * 100) > percentage ? true : false;
+        return (Math.random() * 100) > percentage ? false : true;
     }
 
     return random;

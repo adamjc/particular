@@ -56,7 +56,10 @@ var Particular = (function() {
                 context.beginPath();
                 context.arc(particles[i].x, particles[i].y, particles[i].calculatedWidth, 0, 2 * Math.PI);
 
-                context.fillStyle = 'rgba(255, 255, 255, ' + particles[i].opacity + ')';
+                context.fillStyle = 'rgba(' + particles[i].color.r + ',' +
+                                              particles[i].color.g + ',' +
+                                              particles[i].color.b + ',' +
+                                              particles[i].opacity + ')';
                 context.fill();
             }
         }
@@ -80,8 +83,9 @@ var Particular = (function() {
 
         function updateParticles() {
             for (var i = 0; i < particles.length; i++) {
-                particles[i].y += particles[i].yVel;
-                particles[i].x = (particles[i].startX) * Math.cos(i - time) + (canvas.width / 2);
+                //particles[i].y += particles[i].yVel;
+                particles[i].y = i * 2 * Math.atan(i) + (canvas.height / 4);
+                particles[i].x = i * Math.cos(i- time) + (canvas.width / 2);
                 particles[i].lifeTime++;
                 particles[i].opacity = 1 - (particles[i].lifeTime / particles[i].maxLifeTime);
 
@@ -108,12 +112,16 @@ var Particular = (function() {
                 calculatedHeight: 0,
                 lifeTime: 0,
                 maxLifeTime: 0,
-                colour: '#000',
                 opacity: 1,
                 scale: 0,
+                color: {
+                    r: 0,
+                    g: 0,
+                    b: 0
+                },
                 initialize: function(options) {
                     this.startX = Random.range(0, canvas.width);
-                    this.y = -this.width;
+                    //this.y = -this.width;
                     this.yVel = Random.range(0.1, 0.5);
                     this.opacity = 1;
                     this.lifeTime = 0;
@@ -121,6 +129,20 @@ var Particular = (function() {
                     this.scale = this.yVel / 1;
                     this.calculatedHeight = this.scale * this.height;
                     this.calculatedWidth = this.scale * this.width;
+
+                    if (Random.chance(5)) {
+                        this.color.r = '255';
+                        this.color.g = '0';
+                        this.color.b = '0';
+                    } else if (Random.chance(5)) {
+                        this.color.r = '60';
+                        this.color.g = '141';
+                        this.color.b = '13';
+                    } else {
+                        this.color.r = '255';
+                        this.color.g = '255';
+                        this.color.b = '255';
+                    }
                 }
             }
 
