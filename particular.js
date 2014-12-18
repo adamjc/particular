@@ -16,7 +16,7 @@ var Particular = (function() {
 
         var animationFrameId;
 
-        var particleAmount = options.particleAmount || 1000;
+        var particleAmount = options.particleAmount || 25;
         var particles = [];
 
         var time = 0;
@@ -25,8 +25,8 @@ var Particular = (function() {
         context = canvas.getContext('2d');
 
         particularObject.start = function() {
-            canvas.width = document.getElementById('outer').offsetWidth;
-            canvas.height = document.getElementById('outer').offsetHeight;
+            canvas.width = canvas.parentNode.offsetWidth;
+            canvas.height = canvas.parentNode.offsetHeight;
 
             createParticles();
             warmUpParticles();
@@ -40,7 +40,7 @@ var Particular = (function() {
 
         /* Private methods */
         function update() {
-            time += 0.001;
+            time += 0.002;
 
             animationFrameId = window.requestAnimationFrame(update);
 
@@ -72,7 +72,8 @@ var Particular = (function() {
         function warmUpParticles() {
             for (var i = 0; i < particles.length; i++) {
                 particles[i].y = particles[i].yVel * 500;
-                particles[i].x = (particles[i].startX) * Math.cos(i - 5) + (canvas.width / 2);
+                var x = Math.cos(particles[i].xVel);
+                particles[i].x += x;
                 particles[i].lifeTime = 250;
                 particles[i].opacity = 1 - (particles[i].lifeTime / particles[i].maxLifeTime);
             }
@@ -81,7 +82,8 @@ var Particular = (function() {
         function updateParticles() {
             for (var i = 0; i < particles.length; i++) {
                 particles[i].y += particles[i].yVel;
-                particles[i].x = (particles[i].startX) * Math.cos(i - time) + (canvas.width / 2);
+                var x = Math.cos(particles[i].xVel);
+                particles[i].x += x;
                 particles[i].lifeTime++;
                 particles[i].opacity = 1 - (particles[i].lifeTime / particles[i].maxLifeTime);
 
@@ -114,7 +116,9 @@ var Particular = (function() {
                 initialize: function(options) {
                     this.startX = Random.range(0, canvas.width);
                     this.y = -this.width;
+                    this.x = Random.range(0, canvas.width);
                     this.yVel = Random.range(0.1, 0.5);
+                    this.xVel = Random.range(-5, 5);
                     this.opacity = 1;
                     this.lifeTime = 0;
                     this.maxLifeTime = Random.rangeInt(100, 1000);
