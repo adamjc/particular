@@ -16,7 +16,7 @@ var Particular = (function() {
 
         var animationFrameId;
 
-        var particleAmount = options.particleAmount || 25;
+        var particleAmount = options.particleAmount || 100;
         var particles = [];
 
         var time = 0;
@@ -24,6 +24,7 @@ var Particular = (function() {
         canvas = element;
         context = canvas.getContext('2d');
 
+        /* Public methods */
         particularObject.start = function() {
             canvas.width = canvas.parentNode.offsetWidth;
             canvas.height = canvas.parentNode.offsetHeight;
@@ -36,6 +37,20 @@ var Particular = (function() {
 
         particularObject.stop = function() {
             window.cancelAnimationFrame(animationFrameId);
+        }
+
+        particularObject.updateParticleAmount = function(newParticleAmount) {
+            if (newParticleAmount < particles.length) {
+                particles = particles.slice(0, newParticleAmount);
+            } else {
+                var diffParticles = newParticleAmount - particles.length;
+
+                for (var i = 0; i < diffParticles; i++) {
+                    var particle = createParticle();
+                    particle.initialize();
+                    particles.push(particle);
+                }
+            }
         }
 
         /* Private methods */
@@ -82,7 +97,7 @@ var Particular = (function() {
         function updateParticles() {
             for (var i = 0; i < particles.length; i++) {
                 particles[i].y += particles[i].yVel;
-                var x = Math.cos(particles[i].xVel);
+                var x = Math.sin(particles[i].xVel);
                 particles[i].x += x;
                 particles[i].lifeTime++;
                 particles[i].opacity = 1 - (particles[i].lifeTime / particles[i].maxLifeTime);
